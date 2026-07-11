@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="github_repo" translatable="false">https://github.com/ryosoftware/caffeine-tile</string>
+
+    <string name="app_name">Caffeine</string>
+    <string name="tile_label">@string/app_name</string>
+    <string name="app_description">Prevents the screen from turning off by temporarily changing the screen timeout.\n\nWhen enabled from the Quick Settings panel, the app saves your current screen timeout value and restores it when you tap the button again or turn off the screen.</string>
+
+    <string name="required_permissions">Required permissions</string>
+
+    <string name="grant_write_settings">Allow changing settings</string>
+    <string name="write_settings_title">Permission to modify system settings</string>
+    <string name="write_settings_description">Required to change the screen timeout.</string>
+
+    <string name="grant_battery_optimization">Disable battery optimization</string>
+    <string name="grant_battery_optimization_title">Disable battery optimization</string>
+    <string name="grant_battery_optimization_description">Required to keep the service running and correctly restore the screen timeout when the screen is turned off.</string>
+
+    <string name="grant_post_notifications">Allow post notifications</string>
+    <string name="grant_post_notifications_title">Notifications</string>
+    <string name="grant_post_notifications_description">(Optional) Allows the app to show a notification indicating that "Caffeine" is active and lets you turn it off with a single tap.</string>
+
+    <string name="tile_hint">Add the Caffeine tile to your Quick Settings panel to use it</string>
+
+    <string name="foreground_channel_name">@string/app_name</string>
+    <string name="foreground_channel_desc">Background service</string>
+    <string name="foreground_notification_text">Keeping the screen awake</string>
+    <string name="deactivate">Deactivate</string>
+
+    <string name="missing_permissions">Missing permissions</string>
+
+    <string name="version">v%s</string>
+
+</resources>

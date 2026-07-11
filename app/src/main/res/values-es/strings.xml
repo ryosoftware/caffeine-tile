@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_name">Cafeína</string>
+    <string name="tile_label">@string/app_name</string>
+    <string name="app_description">Evita que la pantalla se apague modificando temporalmente el tiempo de espera.\n\nCuando lo active desde el panel de ajustes rápidos, guardaremos el valor del tiempo de espera de la pantalla que haya configurado y lo restauraremos cuando pulse el botón nuevamente o apague la pantalla.</string>
+
+    <string name="required_permissions">Permisos necesarios</string>
+
+    <string name="grant_write_settings">Permitir cambiar la configuración</string>
+    <string name="write_settings_title">Permiso para modificar la configuración del sistema</string>
+    <string name="write_settings_description">Necesario para modificar el tiempo de espera de la pantalla.</string>
+
+    <string name="grant_battery_optimization">Desactivar optimización de batería</string>
+    <string name="grant_battery_optimization_title">Desactivar optimizaciones de la batería</string>
+    <string name="grant_battery_optimization_description">Necesario para mantener el servicio activo y restaurar correctamente el tiempo de espera de la pantalla cuando la apague.</string>
+
+    <string name="grant_post_notifications">Permitir añadir notificaciones</string>
+    <string name="grant_post_notifications_title">Notificaciones</string>
+    <string name="grant_post_notifications_description">(Opcional) Para añadir una notificación indicativa de que \"Cafeína\" está activo y desactivarlo con un clic.</string>
+
+    <string name="tile_hint">Añada el botón de cafeína al panel de ajustes rápidos para usarlo</string>
+
+    <string name="foreground_channel_name">@string/app_name</string>
+    <string name="foreground_channel_desc">Servicio en segundo plano</string>
+    <string name="foreground_notification_text">Manteniendo la pantalla activa</string>
+    <string name="deactivate">Desactivar</string>
+
+    <string name="missing_permissions">Faltan permisos</string>
+
+</resources>
