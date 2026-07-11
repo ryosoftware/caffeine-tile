@@ -27,6 +27,11 @@
     <string name="foreground_notification_text">Manteniendo la pantalla activa</string>
     <string name="deactivate">Desactivar</string>
 
+    <string name="caffeine_active">La pantalla no se apagará</string>
+    <string name="caffeine_deactive">La pantalla se apagará normalmente</string>
+
     <string name="missing_permissions">Faltan permisos</string>
+
+    <string name="version">v%s</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.core.content.edit
 
 object Settings {
@@ -45,6 +46,8 @@ object Settings {
             CAFFEINE_TIMEOUT_MS
         )
 
+        Toast.makeText(context, R.string.caffeine_active, Toast.LENGTH_LONG).show()
+
         Log.d(BuildConfig.TAG, "Prevent screen off; original=${originalTimeout/1000}, current=${currentTimeout/1000}")
     }
 
@@ -66,6 +69,8 @@ object Settings {
             Settings.System.SCREEN_OFF_TIMEOUT,
             CAFFEINE_TIMEOUT_MS
         )
+
+        Toast.makeText(context, R.string.caffeine_deactive, Toast.LENGTH_LONG).show()
 
         Log.d(BuildConfig.TAG, "Restoring screen timeout; original=${originalTimeout/1000}, current=${currentTimeout/1000}")
     }

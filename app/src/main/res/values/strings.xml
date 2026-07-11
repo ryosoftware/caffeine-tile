@@ -29,6 +29,9 @@
     <string name="foreground_notification_text">Keeping the screen awake</string>
     <string name="deactivate">Deactivate</string>
 
+    <string name="caffeine_active">Screen will stay on</string>
+    <string name="caffeine_deactive">Screen will turn off normally</string>
+
     <string name="missing_permissions">Missing permissions</string>
 
     <string name="version">v%s</string>
