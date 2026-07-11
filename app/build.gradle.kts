@@ -10,7 +10,7 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.ryosoftware.caffeine_tile"
+        applicationId = namespace
         minSdk = 30
 
         versionCode = 1
