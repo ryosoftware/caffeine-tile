@@ -20,15 +20,23 @@
     <string name="grant_post_notifications_title">Notificaciones</string>
     <string name="grant_post_notifications_description">(Opcional) Para añadir una notificación indicativa de que \"Cafeína\" está activo y desactivarlo con un clic.</string>
 
-    <string name="tile_hint">Añada el botón de cafeína al panel de ajustes rápidos para usarlo</string>
-
     <string name="foreground_channel_name">@string/app_name</string>
     <string name="foreground_channel_desc">Servicio en segundo plano</string>
     <string name="foreground_notification_text">Manteniendo la pantalla activa</string>
     <string name="deactivate">Desactivar</string>
 
-    <string name="caffeine_active">La pantalla no se apagará</string>
-    <string name="caffeine_deactive">La pantalla se apagará normalmente</string>
+    <string name="caffeine_on_toast">La pantalla no se apagará</string>
+    <string name="caffeine_off_toast">La pantalla se apagará normalmente</string>
+
+    <string name="caffeine_on_tile">Activa</string>
+    <string name="caffeine_off_tile">Inactiva</string>
+
+    <string name="caffeine_on_activity">Cafeína activa</string>
+    <string name="caffeine_off_activity">Cafeína inactiva</string>
+
+    <string name="show_or_hide_activity_icon_from_launcher_desc">Se mostrará un icono en el cajón de aplicaciones para cambiar el estado de la cafeina.\n\nSi lo desea, una vez que ya ha configurado la app, puede ocultar el acceso directo a esta pantalla de configuración, que ya no es necesario.</string>
+    <string name="hide_activity_from_launcher">Ocultar icono del cajón de aplicaciones</string>
+    <string name="show_activity_from_launcher">Mostrar icono en el cajón de aplicaciones</string>
 
     <string name="missing_permissions">Faltan permisos</string>
 

@@ -31,6 +31,43 @@
 
         </activity>
 
+        <activity
+            android:name=".ToggleActivity"
+            android:taskAffinity="${applicationId}.toggle"
+            android:theme="@style/Theme.CaffeineTile.Transparent"
+            android:excludeFromRecents="true"
+            android:exported="true" />
+
+        <activity-alias
+            android:name=".CaffeineOnActivity"
+            android:targetActivity=".ToggleActivity"
+            android:icon="@mipmap/ic_caffeine_on_launcher"
+            android:label="@string/caffeine_on_activity"
+            android:enabled="false"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity-alias>
+
+        <activity-alias
+            android:name=".CaffeineOffActivity"
+            android:targetActivity=".ToggleActivity"
+            android:icon="@mipmap/ic_caffeine_off_launcher"
+            android:label="@string/caffeine_off_activity"
+            android:enabled="false"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity-alias>
+
         <service
             android:name=".CaffeineTileService"
             android:exported="true"

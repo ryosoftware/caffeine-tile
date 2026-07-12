@@ -2,10 +2,10 @@ package com.ryosoftware.caffeine_tile
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
@@ -22,11 +22,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DynamicColors.applyToActivityIfAvailable(this)
-
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.lblVersion.text = getString(R.string.version, BuildConfig.VERSION_NAME)
+        binding.lblVersion.setOnClickListener{ openGithubRepo() }
+
+        binding.lblName.setOnClickListener{ openGithubRepo() }
 
         binding.btnWriteSettings.setOnClickListener {
             val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS).apply {
@@ -52,10 +56,19 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.lblVersion.text = getString(R.string.version, BuildConfig.VERSION_NAME)
-        binding.lblVersion.setOnClickListener{ openGithubRepo() }
+        binding.btnHideLauncher.setOnClickListener {
+            val component = ComponentName( this, MainActivity::class.java.name)
 
-        binding.lblName.setOnClickListener{ openGithubRepo() }
+            val isEnabled = (packageManager.getComponentEnabledSetting(component) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
+
+            packageManager.setComponentEnabledSetting(
+                component,
+                if (isEnabled) PackageManager.COMPONENT_ENABLED_STATE_DISABLED else PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP
+            )
+
+            updatePermissionButtons()
+        }
     }
 
     private fun openGithubRepo() =
@@ -78,8 +91,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updatePermissionButtons() {
-        val canWriteSettings = Settings.System.canWrite(this)
-        binding.btnWriteSettings.isEnabled = !canWriteSettings
+        val canWriteSystemSettings = AppSettings.canWriteSystemSettings(this)
+        binding.btnWriteSettings.isEnabled = !canWriteSystemSettings
 
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         val isIgnoringBatteryOptimizations = powerManager.isIgnoringBatteryOptimizations(packageName)
@@ -91,6 +104,13 @@ class MainActivity : AppCompatActivity() {
         binding.lblPostNotificationsDescription.isVisible = needsNotificationPermission
         binding.btnPostNotifications.isVisible = needsNotificationPermission
         binding.btnPostNotifications.isEnabled = !notificationGranted
+
+        val component = ComponentName( this, MainActivity::class.java.name)
+        val isActivityVisible = (packageManager.getComponentEnabledSetting(component) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
+        binding.btnHideLauncher.isEnabled = canWriteSystemSettings
+        binding.btnHideLauncher.text = getString(if (isActivityVisible) R.string.hide_activity_from_launcher else R.string.show_activity_from_launcher)
+
+        AppSettings.setToggleActivityState(this)
     }
 
     companion object {

@@ -4,15 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.SharedPreferences
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import android.widget.Toast
 
 class CaffeineTileService : TileService() {
-    private lateinit var prefs: SharedPreferences
-
     inner class UpdateTileReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
@@ -25,11 +22,6 @@ class CaffeineTileService : TileService() {
 
     private val updateTileReceiver = UpdateTileReceiver()
     private var isReceiverRegistered = false
-
-    override fun onCreate() {
-        super.onCreate()
-        prefs = Settings.getPreferences(this)
-    }
 
     override fun onDestroy() {
         unregisterReceiverSafely()
@@ -71,37 +63,24 @@ class CaffeineTileService : TileService() {
     }
 
     override fun onClick() {
-        if (!Settings.canWrite(this)) {
+        if (!AppSettings.canWriteSystemSettings(this)) {
             Toast.makeText(this, R.string.missing_permissions, Toast.LENGTH_LONG).show()
-            return
+            updateTile()
+        } else {
+            AppSettings.toggleUserScreenControl(this)
         }
-
-        if (qsTile.state == Tile.STATE_ACTIVE) { deactivate() } else { activate() }
-    }
-
-    private fun activate() {
-        Settings.preventScreenOff(this, prefs)
-
-        startForegroundService(Intent(this, CaffeineService::class.java))
-
-        qsTile.state = Tile.STATE_ACTIVE
-        qsTile.updateTile()
-    }
-
-    private fun deactivate() {
-        Settings.restoreUserTimeout(this, prefs)
-
-        sendBroadcast(Intent(CaffeineService.ACTION_STOP_CAFFEINE))
-
-        qsTile.state = Tile.STATE_INACTIVE
-        qsTile.updateTile()
     }
 
     private fun updateTile() {
-        qsTile.state = when {
-            !Settings.canWrite(this) -> Tile.STATE_UNAVAILABLE
-            Settings.isPreventingScreenOff(this, prefs) -> Tile.STATE_ACTIVE
-            else -> Tile.STATE_INACTIVE
+        if (!AppSettings.canWriteSystemSettings(this)) {
+            qsTile.state = Tile.STATE_UNAVAILABLE
+            qsTile.label = ""
+        } else if (AppSettings.isPreventingScreenOff(this)) {
+            qsTile.state = Tile.STATE_ACTIVE
+            qsTile.label = getString(R.string.caffeine_on_tile)
+        } else {
+            qsTile.state = Tile.STATE_INACTIVE
+            qsTile.label = getString(R.string.caffeine_off_tile)
         }
 
         qsTile.updateTile()

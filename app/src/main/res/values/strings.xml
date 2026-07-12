@@ -22,15 +22,23 @@
     <string name="grant_post_notifications_title">Notifications</string>
     <string name="grant_post_notifications_description">(Optional) Allows the app to show a notification indicating that "Caffeine" is active and lets you turn it off with a single tap.</string>
 
-    <string name="tile_hint">Add the Caffeine tile to your Quick Settings panel to use it</string>
-
     <string name="foreground_channel_name">@string/app_name</string>
     <string name="foreground_channel_desc">Background service</string>
     <string name="foreground_notification_text">Keeping the screen awake</string>
     <string name="deactivate">Deactivate</string>
 
-    <string name="caffeine_active">Screen will stay on</string>
-    <string name="caffeine_deactive">Screen will turn off normally</string>
+    <string name="caffeine_on_toast">Screen will stay on</string>
+    <string name="caffeine_off_toast">Screen will turn off normally</string>
+
+    <string name="caffeine_on_tile">On</string>
+    <string name="caffeine_off_tile">Off</string>
+
+    <string name="caffeine_on_activity">Caffeine On</string>
+    <string name="caffeine_off_activity">Caffeine Off</string>
+
+    <string name="show_or_hide_activity_icon_from_launcher_desc">An icon will be shown in the app drawer to toggle Caffeine on or off.\n\nOnce you\'ve finished setting up the app, you can hide the shortcut to this settings screen if you no longer need it.</string>
+    <string name="hide_activity_from_launcher">Hide icon from app drawer</string>
+    <string name="show_activity_from_launcher">Show icon in app drawer</string>
 
     <string name="missing_permissions">Missing permissions</string>
 

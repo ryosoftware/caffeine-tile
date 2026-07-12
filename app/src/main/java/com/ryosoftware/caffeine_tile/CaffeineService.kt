@@ -10,7 +10,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
@@ -20,10 +19,11 @@ class CaffeineService : Service() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
                 Intent.ACTION_SCREEN_OFF,
-                ACTION_STOP_CAFFEINE -> {
-                    Settings.restoreUserTimeout(context, prefs)
-                    sendBroadcast(Intent(CaffeineTileService.ACTION_UPDATE_TILE).apply { setPackage(context.packageName) })
+                ACTION_STOP_SERVICE -> {
                     unregisterReceiverSafely()
+
+                    AppSettings.restoreUserScreenControl(context)
+
                     stopForeground(STOP_FOREGROUND_REMOVE)
                     stopSelf()
                 }
@@ -31,14 +31,11 @@ class CaffeineService : Service() {
         }
     }
 
-    private lateinit var prefs: SharedPreferences
-
     private var isReceiverRegistered = false
     private val screenStateReceiver = ScreenStateReceiver()
 
     override fun onCreate() {
         super.onCreate()
-        prefs = Settings.getPreferences(this)
         createNotificationChannel()
     }
 
@@ -46,7 +43,7 @@ class CaffeineService : Service() {
         if (! isReceiverRegistered) {
             val filter = IntentFilter().apply {
                 addAction(Intent.ACTION_SCREEN_OFF)
-                addAction(ACTION_STOP_CAFFEINE)
+                addAction(ACTION_STOP_SERVICE)
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -85,7 +82,7 @@ class CaffeineService : Service() {
 
     @SuppressLint("LaunchActivityFromNotification")
     private fun buildNotification(): Notification {
-        val deactivateIntent = Intent(ACTION_STOP_CAFFEINE).apply {
+        val deactivateIntent = Intent(ACTION_STOP_SERVICE).apply {
             setPackage(packageName)
         }
 
@@ -117,6 +114,6 @@ class CaffeineService : Service() {
         private const val NOTIFICATION_ID = 1
         private const val CHANNEL_ID = "caffeine_channel"
 
-        const val ACTION_STOP_CAFFEINE = "${BuildConfig.APPLICATION_ID}.STOP_CAFFEINE"
+        const val ACTION_STOP_SERVICE = "${BuildConfig.APPLICATION_ID}.STOP_CAFFEINE"
     }
 }

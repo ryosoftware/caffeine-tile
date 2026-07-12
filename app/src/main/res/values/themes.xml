@@ -6,4 +6,12 @@
         <item name="colorPrimaryContainer">#FFFFE0B2</item>
         <item name="colorOnPrimaryContainer">@color/orange</item>
     </style>
+
+    <style name="Theme.CaffeineTile.Transparent" parent="Theme.CaffeineTile">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
 </resources>
