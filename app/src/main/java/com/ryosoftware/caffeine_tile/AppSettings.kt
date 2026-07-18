@@ -6,6 +6,8 @@ import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
@@ -83,6 +85,16 @@ object AppSettings {
     fun isPreventingScreenOff(context: Context) =
         isPreventingScreenOff(getPreferences(context))
 
+    private fun vibrate(context: Context, vibrationPattern: LongArray?) {
+        if (vibrationPattern != null) {
+            val vibrator = context.getSystemService(Vibrator::class.java)
+
+            if (vibrator?.hasVibrator() == true) {
+                vibrator.vibrate(VibrationEffect.createWaveform(vibrationPattern, -1))
+            }
+        }
+    }
+
     private fun preventScreenOff(context: Context, prefs: SharedPreferences) {
         if (isPreventingScreenOff(prefs)) return
 
@@ -98,6 +110,8 @@ object AppSettings {
         context.startForegroundService(Intent(context, CaffeineService::class.java))
 
         setToggleActivityState(context,true)
+
+        vibrate(context, longArrayOf(0, 120, 80, 120))
     }
 
     fun preventScreenOff(context: Context) =
@@ -119,6 +133,8 @@ object AppSettings {
         sendLocalExplicitBroadcast(context, Intent(CaffeineService.ACTION_STOP_SERVICE))
 
         setToggleActivityState(context,false)
+
+        vibrate(context, longArrayOf(0, 30))
     }
 
     fun restoreUserScreenControl(context: Context) =
