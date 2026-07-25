@@ -10,7 +10,7 @@
 
     <string name="required_permissions">Required permissions</string>
 
-    <string name="grant_write_settings">Allow changing settings</string>
+    <string name="grant_write_settings">Allow change settings</string>
     <string name="write_settings_title">Permission to modify system settings</string>
     <string name="write_settings_description">Required to change the screen timeout.</string>
 
@@ -22,13 +22,21 @@
     <string name="grant_post_notifications_title">Notifications</string>
     <string name="grant_post_notifications_description">(Optional) Allows the app to show a notification indicating that "Caffeine" is active and lets you turn it off with a single tap.</string>
 
+    <string name="default_timeout_title">Default timeout</string>
+    <string name="default_timeout_description">Sets the screen-on interval that will be applied when you click the Quick Settings Tile or the app drawer icon.</string>
+
     <string name="foreground_channel_name">@string/app_name</string>
     <string name="foreground_channel_desc">Background service</string>
     <string name="foreground_notification_text">Keeping the screen awake</string>
     <string name="deactivate">Deactivate</string>
 
     <string name="caffeine_on_toast">Screen will stay on</string>
+    <string name="caffeine_on_toast_with_time">Screen will stay on for %1$s</string>
     <string name="caffeine_off_toast">Screen will turn off normally</string>
+
+    <string name="timeout">Timeout</string>
+    <string name="unlimited">Unlimited</string>
+    <string name="minutes_and_seconds">%1$s and %2$s</string>
 
     <string name="caffeine_on_tile">On</string>
     <string name="caffeine_off_tile">Off</string>
@@ -41,6 +49,8 @@
     <string name="show_activity_from_launcher">Show icon in app drawer</string>
 
     <string name="missing_permissions">Missing permissions</string>
+
+    <string name="set_as_default">Set as default</string>
 
     <string name="version">v%s</string>
 

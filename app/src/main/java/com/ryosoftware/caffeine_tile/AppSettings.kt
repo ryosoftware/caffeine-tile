@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.provider.Settings
+import android.text.format.DateUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.edit
@@ -17,7 +18,7 @@ import kotlin.jvm.java
 object AppSettings {
     private const val PREFS_NAME = "caffeine_prefs"
     private const val KEY_ORIGINAL_TIMEOUT = "original_screen_off_timeout"
-    private const val CAFFEINE_TIMEOUT_MS = Int.MAX_VALUE
+    private const val KEY_DEFAULT_TIMEOUT = "default_timeout"
 
     fun getPreferences(context: Context): SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
@@ -95,15 +96,19 @@ object AppSettings {
         }
     }
 
-    private fun preventScreenOff(context: Context, prefs: SharedPreferences) {
+    private fun preventScreenOff(context: Context, prefs: SharedPreferences, seconds: Int) {
         if (isPreventingScreenOff(prefs)) return
 
+
         prefs.edit {
-            val originalTimeout = setScreenTimeout(context, CAFFEINE_TIMEOUT_MS)
+            val timeout = if (seconds <= 0) Int.MAX_VALUE else (seconds * DateUtils.SECOND_IN_MILLIS).toInt()
+            val originalTimeout = setScreenTimeout(context, timeout)
             putInt(KEY_ORIGINAL_TIMEOUT, originalTimeout)
         }
 
-        Toast.makeText(context, R.string.caffeine_on_toast, Toast.LENGTH_LONG).show()
+        val message = if (seconds <= 0) context.getString(R.string.caffeine_on_toast)
+                      else context.getString(R.string.caffeine_on_toast_with_time, Utils.getLabelForInterval(context, seconds))
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
         sendLocalExplicitBroadcast(context, Intent(CaffeineTileService.ACTION_UPDATE_TILE))
 
@@ -114,14 +119,14 @@ object AppSettings {
         vibrate(context, longArrayOf(0, 120, 80, 120))
     }
 
-    fun preventScreenOff(context: Context) =
-        preventScreenOff(context, getPreferences(context))
+    fun preventScreenOff(context: Context, seconds: Int) =
+        preventScreenOff(context, getPreferences(context), seconds)
 
     fun restoreUserScreenControl(context: Context, prefs: SharedPreferences) {
         if (!isPreventingScreenOff(prefs)) return
 
         prefs.edit {
-            val originalTimeout = prefs.getInt(KEY_ORIGINAL_TIMEOUT, CAFFEINE_TIMEOUT_MS)
+            val originalTimeout = prefs.getInt(KEY_ORIGINAL_TIMEOUT, 30)
             remove(KEY_ORIGINAL_TIMEOUT)
             setScreenTimeout(context, originalTimeout)
         }
@@ -146,7 +151,14 @@ object AppSettings {
         if (isPreventingScreenOff(prefs)) {
             restoreUserScreenControl(context, prefs)
         } else {
-            preventScreenOff(context, prefs)
+            val seconds = getDefaultTimeout(context)
+            preventScreenOff(context, prefs, seconds)
         }
     }
+
+    fun getDefaultTimeout(context: Context): Int =
+        getPreferences(context).getInt(KEY_DEFAULT_TIMEOUT, 0)
+
+    fun setDefaultTimeout(context: Context, seconds: Int) =
+        getPreferences(context).edit { putInt(KEY_DEFAULT_TIMEOUT, seconds) }
 }

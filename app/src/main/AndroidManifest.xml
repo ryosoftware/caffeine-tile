@@ -72,6 +72,20 @@
 
         </activity-alias>
 
+        <activity
+            android:name=".TimeoutPickerActivity"
+            android:taskAffinity="${applicationId}.timeout_picker"
+            android:theme="@style/Theme.CaffeineTile.Transparent"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+            </intent-filter>
+
+        </activity>
+
         <service
             android:name=".CaffeineTileService"
             android:exported="true"

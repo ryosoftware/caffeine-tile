@@ -13,8 +13,8 @@ android {
         applicationId = namespace
         minSdk = 30
 
-        versionCode = 3
-        versionName = "1.2"
+        versionCode = 4
+        versionName = "1.3"
 
         buildConfigField(
             "String",

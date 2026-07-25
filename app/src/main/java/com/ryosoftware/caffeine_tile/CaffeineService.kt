@@ -25,18 +25,23 @@ class CaffeineService : Service() {
                     AppSettings.restoreUserScreenControl(context)
 
                     stopForeground(STOP_FOREGROUND_REMOVE)
-                    stopSelf()
-                }
+                    stopSelf()                }
             }
         }
     }
 
-    private var isReceiverRegistered = false
+     private var isReceiverRegistered = false
     private val screenStateReceiver = ScreenStateReceiver()
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+    }
+
+    override fun onDestroy() {
+        unregisterReceiverSafely()
+
+        super.onDestroy()
     }
 
     private fun registerReceiver() {
@@ -70,12 +75,6 @@ class CaffeineService : Service() {
         registerReceiver()
 
         return START_STICKY
-    }
-
-    override fun onDestroy() {
-        unregisterReceiverSafely()
-
-        super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -113,7 +112,6 @@ class CaffeineService : Service() {
     companion object {
         private const val NOTIFICATION_ID = 1
         private const val CHANNEL_ID = "caffeine_channel"
-
         const val ACTION_STOP_SERVICE = "${BuildConfig.APPLICATION_ID}.STOP_CAFFEINE"
     }
 }

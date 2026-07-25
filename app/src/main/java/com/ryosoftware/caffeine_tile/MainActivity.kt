@@ -10,15 +10,20 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import com.google.android.material.color.DynamicColors
+import com.google.android.material.textfield.TextInputLayout
 import com.ryosoftware.caffeine_tile.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private val timeoutValues by lazy { resources.getIntArray(R.array.predefined_timeouts) }
+    private val timeoutLabels by lazy { timeoutValues.map { Utils.getLabelForInterval(this, it) } }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DynamicColors.applyToActivityIfAvailable(this)
@@ -69,6 +74,11 @@ class MainActivity : AppCompatActivity() {
 
             updatePermissionButtons()
         }
+
+        binding.spnDefaultTimeout.setAdapter(ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, timeoutLabels))
+        binding.spnDefaultTimeout.setOnItemClickListener { _, _, position, _ ->
+            AppSettings.setDefaultTimeout(this, timeoutValues[position])
+        }
     }
 
     private fun openGithubRepo() =
@@ -77,6 +87,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         updatePermissionButtons()
+        updateDefaultTimeoutDropdown()
     }
 
     override fun onRequestPermissionsResult(
@@ -111,6 +122,14 @@ class MainActivity : AppCompatActivity() {
         binding.btnHideLauncher.text = getString(if (isActivityVisible) R.string.hide_activity_from_launcher else R.string.show_activity_from_launcher)
 
         AppSettings.setToggleActivityState(this)
+    }
+
+    private fun updateDefaultTimeoutDropdown() {
+        val default = AppSettings.getDefaultTimeout(this)
+        val index = timeoutValues.indexOf(default)
+        if (index >= 0) {
+            binding.spnDefaultTimeout.setText(timeoutLabels[index], false)
+        }
     }
 
     companion object {

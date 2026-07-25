@@ -20,13 +20,21 @@
     <string name="grant_post_notifications_title">Notificaciones</string>
     <string name="grant_post_notifications_description">(Opcional) Para añadir una notificación indicativa de que \"Cafeína\" está activo y desactivarlo con un clic.</string>
 
+    <string name="default_timeout_title">Intervalo predeterminado</string>
+    <string name="default_timeout_description">Establece el intervalo de pantalla encendida que se establecerá cuando haga clic en el mosaico o en el icono del cajón de aplicaciones.</string>
+
     <string name="foreground_channel_name">@string/app_name</string>
     <string name="foreground_channel_desc">Servicio en segundo plano</string>
     <string name="foreground_notification_text">Manteniendo la pantalla activa</string>
     <string name="deactivate">Desactivar</string>
 
     <string name="caffeine_on_toast">La pantalla no se apagará</string>
+    <string name="caffeine_on_toast_with_time">La pantalla no se apagará durante %1$s</string>
     <string name="caffeine_off_toast">La pantalla se apagará normalmente</string>
+
+    <string name="timeout">Temporizador</string>
+    <string name="unlimited">Sin límite</string>
+    <string name="minutes_and_seconds">%1$s y %2$s</string>
 
     <string name="caffeine_on_tile">Activa</string>
     <string name="caffeine_off_tile">Inactiva</string>
@@ -39,6 +47,8 @@
     <string name="show_activity_from_launcher">Mostrar icono en el cajón de aplicaciones</string>
 
     <string name="missing_permissions">Faltan permisos</string>
+
+    <string name="set_as_default">Establecer como predeterminado</string>
 
     <string name="version">v%s</string>
 

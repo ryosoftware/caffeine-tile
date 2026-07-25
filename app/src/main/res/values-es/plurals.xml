@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="UnusedQuantity">
+
+    <plurals name="seconds">
+        <item quantity="one">%1$d segundo</item>
+        <item quantity="other">%1$d segundos</item>
+        <item quantity="many">%1$d segundos</item>
+    </plurals>
+
+    <plurals name="minutes">
+        <item quantity="one">%1$d minuto</item>
+        <item quantity="other">%1$d minutos</item>
+        <item quantity="many">%1$d minutos</item>
+    </plurals>
+
+</resources>
