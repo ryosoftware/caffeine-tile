@@ -110,7 +110,7 @@ object AppSettings {
                       else context.getString(R.string.caffeine_on_toast_with_time, Utils.getLabelForInterval(context, seconds))
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
-        sendLocalExplicitBroadcast(context, Intent(CaffeineTileService.ACTION_UPDATE_TILE))
+        CaffeineTileService.updateTile(context)
 
         context.startForegroundService(Intent(context, CaffeineService::class.java))
 
@@ -133,7 +133,7 @@ object AppSettings {
 
         Toast.makeText(context, R.string.caffeine_off_toast, Toast.LENGTH_LONG).show()
 
-        sendLocalExplicitBroadcast(context,Intent(CaffeineTileService.ACTION_UPDATE_TILE))
+        CaffeineTileService.updateTile(context)
 
         sendLocalExplicitBroadcast(context, Intent(CaffeineService.ACTION_STOP_SERVICE))
 
