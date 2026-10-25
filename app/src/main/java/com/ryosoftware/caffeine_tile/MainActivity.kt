@@ -88,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         updatePermissionButtons()
         updateDefaultTimeoutDropdown()
+        CaffeineTileService.updateTile(this)
     }
 
     override fun onRequestPermissionsResult(

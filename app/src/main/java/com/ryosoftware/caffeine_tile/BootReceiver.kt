@@ -9,7 +9,7 @@ class BootReceiver : BroadcastReceiver() {
         val action = intent.action
 
         if ((action == Intent.ACTION_BOOT_COMPLETED) || (action == Intent.ACTION_MY_PACKAGE_REPLACED)) {
-            val prefs = AppSettings.getPreferences(context)
+            CaffeineTileService.updateTile(context)
 
             if (AppSettings.isPreventingScreenOff(context)) {
                 context.startForegroundService(Intent(context, CaffeineService::class.java))
